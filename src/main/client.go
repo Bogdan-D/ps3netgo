@@ -10,10 +10,17 @@ import (
 	"os"
 )
 
+type FileReader interface {
+	io.ReaderAt
+	io.Seeker
+	io.Closer
+	Stat() (os.FileInfo, error)
+}
+
 type client struct {
 	socket  *net.TCPConn
 	dir     *os.File
-	ro_file *os.File
+	ro_file FileReader
 	wo_file *os.File
 }
 

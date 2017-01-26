@@ -6,7 +6,15 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
+	"viso"
 )
+
+type FileReader interface {
+	io.ReaderAt
+	io.Closer
+	Stat() (os.FileInfo, error)
+}
 
 type open_file_message struct {
 	Cmd     uint16
@@ -15,8 +23,9 @@ type open_file_message struct {
 }
 
 type open_file_result struct {
-	File   *os.File
-	Result struct {
+	File FileReader
+
+	Message struct {
 		FileSize int64 // -1 error
 		Mtime    int64
 	}
@@ -40,11 +49,18 @@ func OpenFile(r io.Reader) (result open_file_result, err error) {
 	wd, _ := os.Getwd()
 	path := filepath.Join(wd, string(data))
 
-	file, err := os.Open(path)
+	var file FileReader
+
+	if strings.Contains(path, "/***PS3***/") {
+		path = strings.Replace(path, "/***PS3***/", "", 1)
+		file, err = viso.Open(path, true)
+	} else {
+		file, err = os.Open(path)
+	}
 
 	if err != nil {
 		log.Print("Failed to open file ", path, " | ", err)
-		result.Result.FileSize = -1
+		result.Message.FileSize = -1
 
 		return result, nil
 	}
@@ -52,13 +68,13 @@ func OpenFile(r io.Reader) (result open_file_result, err error) {
 	info, err := file.Stat()
 	if err != nil {
 		log.Print("Failed to stat file ", path, " | ", err)
-		result.Result.FileSize = -1
+		result.Message.FileSize = -1
 
 		return result, nil
 	}
 
-	result.Result.FileSize = info.Size()
-	result.Result.Mtime = info.ModTime().Unix()
+	result.Message.FileSize = info.Size()
+	result.Message.Mtime = info.ModTime().Unix()
 	result.File = file
 
 	return result, nil
