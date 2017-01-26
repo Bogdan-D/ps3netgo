@@ -1,0 +1,98 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;ps3netgo&gt;">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/cmd" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/math" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/errors" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/hash" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/regexp" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/syscall" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/internal" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/bufio" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/expvar" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/flag" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/log" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/unsafe" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/database" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/strings" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/vendor" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/debug" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/os" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/builtin" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/go" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/bytes" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/time" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/container" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/mime" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/fmt" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/path" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/reflect" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/context" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/html" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/text" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/net" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/image" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/compress" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/io" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/testing" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/index" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/runtime" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/archive" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/sort" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/encoding" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/sync" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/crypto" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/strconv" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/unicode" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/cmd" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/math" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/errors" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/hash" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/regexp" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/syscall" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/internal" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/bufio" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/expvar" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/flag" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/log" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/unsafe" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/database" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/strings" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/vendor" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/debug" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/os" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/builtin" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/go" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/bytes" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/time" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/container" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/mime" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/fmt" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/path" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/reflect" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/context" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/html" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/text" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/net" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/image" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/compress" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/io" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/testing" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/index" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/runtime" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/archive" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/sort" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/encoding" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/sync" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/crypto" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/strconv" />
+      <root url="file://$USER_HOME$/.gvm/gos/go1.7.1/src/unicode" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
