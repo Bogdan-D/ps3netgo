@@ -1,17 +1,16 @@
-package iso9660
+package volume
 
-type primaryVolume struct {
-	descriptorHeader
+type SupplementaryRecord struct {
+	volumeDescriptorHeader
 
-	// always 0x00
-	_ byte
+	VolumeFlags int8
 
 	// The name of the system that can act upon sectors 0x00-0x0F for the volume.
 	SysId [32]byte
 	// Identification of this volume.
-	Id [32]byte
+	VolId [32]byte
 
-	//  Unused Field
+	// unused
 	_ [8]byte
 
 	// Number of blocks in Little Endian
@@ -19,8 +18,7 @@ type primaryVolume struct {
 	// Number of blocks in Big Endian
 	BlockCount uint32
 
-	// Unused
-	_ [32]byte
+	EscapeSeq [32]byte
 
 	// The size of the set in this logical volume (number of disks). Little Endian
 	DiskCountLSB [2]byte
@@ -33,9 +31,9 @@ type primaryVolume struct {
 	DiskNum uint16
 
 	// BlockSize in Little Endian
-	SectorSizeLSB [2]byte
+	BlockSizeLSB [2]byte
 	// BlockSize in Big Endian
-	SectorSize uint16
+	BlockSize uint16
 
 	// The size in bytes of the path table. Little Endian
 	PathTableSizeLSB [4]byte
@@ -58,14 +56,14 @@ type primaryVolume struct {
 	RootDirectory directoryRecord
 
 	// Identifier of the volume set of which this volume is a member.
-	VolumeId [128]byte
+	VolumeName [128]byte
 	// The volume publisher. For extended publisher information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
-	PublisherId [128]byte
+	PublisherFile [128]byte
 	// The identifier of the person(s) who prepared the data for this volume.
 	// For extended preparation information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
-	PreparerId [128]byte
+	PreparerFile [128]byte
 	// Identifies how the data are recorded on this volume. For extended information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
 	AppId [128]byte
@@ -75,10 +73,10 @@ type primaryVolume struct {
 	CopyrightFile [38]byte
 	// Filename of a file in the root directory that contains abstract information for this volume set.
 	// If not specified, all bytes should be 0x20.
-	AbstractFile [38]byte
+	AbstractFile [36]byte
 	// Filename of a file in the root directory that contains bibliographic information for this volume set.
 	// If not specified, all bytes should be 0x20.
-	BiblioFile [38]byte
+	BiblioFile [37]byte
 
 	CreateDate    [17]byte
 	ModDate       [17]byte

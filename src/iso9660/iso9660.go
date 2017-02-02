@@ -2,84 +2,53 @@ package iso9660
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
+	. "iso9660/volume"
 )
-
-var descriptorTypes = map[int]string{
-	0:   "Boot Record",
-	1:   "Primary Volume Descriptor",
-	2:   "Supplementary Volume Descriptor",
-	3:   "Volume Partition Descriptor",
-	255: "Volume Descriptor Set Terminator",
-}
-
-type descriptorHeader struct {
-	Type    int8
-	Ident   [5]byte
-	Version byte
-}
-
-func (d descriptorHeader) TypeName() string {
-	var i = int(d.Type)
-
-	name, ok := descriptorTypes[i]
-	if !ok {
-		return "Reserved"
-	}
-
-	return name
-}
 
 type directoryRecord [34]byte
 
-type bootRecord struct {
-	descriptorHeader
-
-	SysId [32]byte
-	Id    [32]byte
-	Data  [1977]byte
-}
-
-type basicRecord struct {
-	descriptorHeader
-
-	Data [2041]byte
-}
-
-type isoHeader struct {
-	System     [32768]byte
-	BootRecord bootRecord
-	PrimaryVol primaryVolume
-}
-
 type iso struct {
-	isoHeader
-	Records []basicRecord
+	// reserved
+	_ [32768]byte
+
+	BootRecords []BootRecord
+
+	PrimaryVol PrimaryRecord
+
+	SupplVols []SupplementaryRecord
 }
 
-// Read header from Reader and return *iso struct
-func NewIsoFromReader(r io.Reader) (*iso, error) {
-	var i = &iso{}
+// Read iso header from Reader and return *iso struct
+func NewIsoFromReader(r io.Reader) (i *iso, err error) {
+	var descriptor VolumeDescriptor
 
-	err := binary.Read(r, binary.BigEndian, &i.isoHeader)
-	if err != nil {
-		return nil, err
-	}
+	i = &iso{}
 
-	var record = basicRecord{}
+	for {
+		err = binary.Read(r, binary.BigEndian, &descriptor)
+		if err != nil || descriptor.IsTerminator() {
+			break
+		}
 
-	for err = binary.Read(r, binary.BigEndian, &record); err == nil; {
-		fmt.Print(record.TypeName())
-
-		if record.TypeName() == "Reserved" {
+		if descriptor.IsReserved() {
 			continue
 		}
 
-		i.Records = append(i.Records, record)
+		switch {
+		case descriptor.IsBoot():
+			if boot := descriptor.ToBootRecord(); boot != nil {
+				i.BootRecords = append(i.BootRecords, *boot)
+			}
+		case descriptor.IsPrimary():
+			if primary := descriptor.ToPrimary(); primary != nil {
+				i.PrimaryVol = *primary
+			}
 
-		if record.TypeName() == "Volume Descriptor Set Terminator" {
-			break
+		case descriptor.IsSupplementary():
+			if suppl := descriptor.ToSupplementary(); suppl != nil {
+				i.SupplVols = append(i.SupplVols, *suppl)
+			}
 		}
 	}
 
