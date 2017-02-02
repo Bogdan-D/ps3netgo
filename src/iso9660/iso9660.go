@@ -6,11 +6,9 @@ import (
 	. "iso9660/volume"
 )
 
-type directoryRecord [34]byte
-
 type iso struct {
 	// reserved
-	_ [32768]byte
+	System [32768]byte
 
 	BootRecords []BootRecord
 
@@ -22,8 +20,11 @@ type iso struct {
 // Read iso header from Reader and return *iso struct
 func NewIsoFromReader(r io.Reader) (i *iso, err error) {
 	var descriptor VolumeDescriptor
-
 	i = &iso{}
+
+	if _, err = r.Read(i.System[:]); err != nil {
+		return nil, err
+	}
 
 	for {
 		err = binary.Read(r, binary.BigEndian, &descriptor)
