@@ -47,7 +47,7 @@ func (d volumeDescriptorHeader) IsBoot() bool {
 
 // Convert volume descriptor struct to Supplementary struct
 // Because all of them has same size, it's safe to use unsafe here
-func (d volumeDescriptorHeader) ToSupplementary() *SupplementaryRecord {
+func (d *volumeDescriptorHeader) ToSupplementary() *SupplementaryRecord {
 	if d.IsSupplementary() {
 		var pointer = unsafe.Pointer(&d)
 		var volumePointer = (*SupplementaryRecord)(pointer)
@@ -60,9 +60,9 @@ func (d volumeDescriptorHeader) ToSupplementary() *SupplementaryRecord {
 
 // Convert volume descriptor struct to primaryVolume.
 // Because all of descriptors has same size, it's safe to use unsafe here
-func (d volumeDescriptorHeader) ToPrimary() *PrimaryRecord {
+func (d *volumeDescriptorHeader) ToPrimary() *PrimaryRecord {
 	if d.IsPrimary() {
-		var pointer = unsafe.Pointer(&d)
+		var pointer = unsafe.Pointer(d)
 		var volumePointer = (*PrimaryRecord)(pointer)
 
 		return volumePointer
@@ -73,7 +73,7 @@ func (d volumeDescriptorHeader) ToPrimary() *PrimaryRecord {
 
 // Convert volume descriptor struct to bootRecord.
 // Because all of descriptors has same size, it's safe to use unsafe here
-func (d volumeDescriptorHeader) ToBootRecord() *BootRecord {
+func (d *volumeDescriptorHeader) ToBootRecord() *BootRecord {
 	if d.IsBoot() {
 		var pointer = unsafe.Pointer(&d)
 		var volumePointer = (*BootRecord)(pointer)

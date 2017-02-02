@@ -55,7 +55,7 @@ type PrimaryRecord struct {
 	OptPathTableSector uint32
 
 	// Directory Record, which contains a single byte Directory Identifier
-	RootDirectory directoryRecord
+	RootDirectory [34]byte
 
 	// Identifier of the volume set of which this volume is a member.
 	VolumeName [128]byte
