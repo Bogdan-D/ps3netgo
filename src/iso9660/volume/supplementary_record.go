@@ -1,14 +1,14 @@
 package volume
 
 type SupplementaryRecord struct {
-	volumeDescriptorHeader
+	volumeHeader
 
 	VolumeFlags int8
 
 	// The name of the system that can act upon sectors 0x00-0x0F for the volume.
-	SysId [32]byte
+	SystemID [32]byte
 	// Identification of this volume.
-	VolId [32]byte
+	ID [32]byte
 
 	// unused
 	_ [8]byte
@@ -66,7 +66,7 @@ type SupplementaryRecord struct {
 	PreparerFile [128]byte
 	// Identifies how the data are recorded on this volume. For extended information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
-	AppId [128]byte
+	AppID [128]byte
 
 	// Filename of a file in the root directory that contains copyright information for this volume set.
 	// If not specified, all bytes should be 0x20.

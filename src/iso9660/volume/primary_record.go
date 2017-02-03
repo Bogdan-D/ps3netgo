@@ -1,15 +1,15 @@
 package volume
 
 type PrimaryRecord struct {
-	volumeDescriptorHeader
+	volumeHeader
 
 	// always 0x00
 	_ byte
 
 	// The name of the system that can act upon sectors 0x00-0x0F for the volume.
-	SysId [32]byte
+	SystemID [32]byte
 	// Identification of this volume.
-	VolId [32]byte
+	ID [32]byte
 
 	//  Unused Field
 	_ [8]byte
@@ -23,9 +23,9 @@ type PrimaryRecord struct {
 	_ [32]byte
 
 	// The size of the set in this logical volume (number of disks). Little Endian
-	DiskCountLSB [2]byte
+	DisksCountLSB [2]byte
 	// The size of the set in this logical volume (number of disks). Big Endian
-	DiskCount uint16
+	DisksCount uint16
 
 	// The number of this disk in the Volume Set. Little Endian
 	DiskNumLSB [2]byte
@@ -46,19 +46,20 @@ type PrimaryRecord struct {
 	PathTableSectorLSB [4]byte
 	// LBA location of the optional path table contains only little-endian values.
 	// Zero means that no optional path table exists.
-	OptPathTableSectorLSB [4]byte
+	PathTableOptSectorLSB [4]byte
 
 	// LBA location of the path table contains only big-endian values
 	PathTableSector uint32
 	// LBA location of the optional path table contains only big-endian values.
 	// Zero means that no optional path table exists.
-	OptPathTableSector uint32
+	PathTableOptSector uint32
 
 	// Directory Record, which contains a single byte Directory Identifier
 	RootDirectory [34]byte
 
 	// Identifier of the volume set of which this volume is a member.
 	VolumeName [128]byte
+
 	// The volume publisher. For extended publisher information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
 	PublisherFile [128]byte
@@ -68,7 +69,7 @@ type PrimaryRecord struct {
 	PreparerFile [128]byte
 	// Identifies how the data are recorded on this volume. For extended information, the first byte should be 0x5F,
 	// followed by the filename of a file in the root directory. If not specified, all bytes should be 0x20.
-	AppId [128]byte
+	AppID [128]byte
 
 	// Filename of a file in the root directory that contains copyright information for this volume set.
 	// If not specified, all bytes should be 0x20.
