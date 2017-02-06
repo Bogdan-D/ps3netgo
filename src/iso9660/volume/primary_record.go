@@ -86,7 +86,7 @@ type PrimaryRecord struct {
 	ExpireDate    [17]byte //  The date and time after which this volume is considered to be obsolete. If not specified, then the volume is never considered to be obsolete.
 	EffectiveDate [17]byte // The date and time after which the volume may be used. If not specified, the volume may be used immediately.
 
-	StructureVersion int8 // The directory records and path table version (always 0x01).
+	StructureVersion uint8 // The directory records and path table version (always 0x01).
 
 	_ byte // Unused
 
