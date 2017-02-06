@@ -12,7 +12,6 @@ import (
 
 type FileReader interface {
 	io.ReaderAt
-	io.Seeker
 	io.Closer
 	Stat() (os.FileInfo, error)
 }
@@ -99,7 +98,7 @@ func (c *client) Run() {
 			}
 
 			c.ro_file = result.File
-			err = binary.Write(c.socket, binary.BigEndian, result.Result)
+			err = binary.Write(c.socket, binary.BigEndian, &result.Message)
 			if err != nil {
 				log.Print("Error writing to socket CMD_OPEN_FILE: ", err)
 				return
