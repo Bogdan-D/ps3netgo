@@ -11,7 +11,7 @@ import (
 )
 
 type FileReader interface {
-	io.ReaderAt
+	io.ReadSeeker
 	io.Closer
 	Stat() (os.FileInfo, error)
 }

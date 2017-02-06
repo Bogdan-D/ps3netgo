@@ -11,7 +11,7 @@ import (
 )
 
 type FileReader interface {
-	io.ReaderAt
+	io.ReadSeeker
 	io.Closer
 	Stat() (os.FileInfo, error)
 }
@@ -28,22 +28,26 @@ type packet struct {
 	Data    [14]byte
 }
 
-func (c *client) Run() {
-	for {
-		var raw_msg [16]byte
-		var msg = &packet{}
+type read_file_message struct {
+	Cmd    uint16
+	Pad    uint16
+	Len    uint32
+	Offset uint64
+}
 
+func (c *client) Run() {
+	var raw_msg [16]byte
+	var msg packet
+	var buf []byte
+
+	for {
 		_, err := c.socket.Read(raw_msg[:])
 		if err != nil {
-			if err == io.EOF {
-				return
-			}
-
 			log.Print("Error read from socket: ", err)
 			return
 		}
-		log.Print(raw_msg)
-		binary.Read(bytes.NewReader(raw_msg[:]), binary.BigEndian, msg)
+
+		binary.Read(bytes.NewReader(raw_msg[:]), binary.BigEndian, &msg)
 
 		switch msg.Command {
 		case command.NETISO_CMD_OPEN_DIR:
@@ -105,30 +109,30 @@ func (c *client) Run() {
 			}
 
 		case command.NETISO_CMD_READ_FILE:
-			type read_file_message struct {
-				Cmd    uint16
-				Pad    uint16
-				Len    uint32
-				Offset uint64
-			}
+			var bytes_read int32
+			var msg read_file_message
 
-			msg := &read_file_message{}
-			err = binary.Read(bytes.NewReader(raw_msg[:]), binary.BigEndian, msg)
+			err = binary.Read(bytes.NewReader(raw_msg[:]), binary.BigEndian, &msg)
 			if err != nil {
 				log.Print("Error while processing CMD_READ_FILE ", err)
 				return
 			}
 
-			var bytes_read int32
-			var buf = make([]byte, msg.Len)
+			buf = make([]byte, msg.Len)
 
 			if c.ro_file == nil {
 				bytes_read = -1
 			} else {
-				n, err := c.ro_file.ReadAt(buf, int64(msg.Offset))
-				bytes_read = int32(n)
-				if err != nil {
+				offset, err := c.ro_file.Seek(int64(msg.Offset), io.SeekStart)
+				if err != nil || offset != int64(msg.Offset) {
 					bytes_read = -1
+				} else {
+
+					n, err := c.ro_file.Read(buf)
+					bytes_read = int32(n)
+					if err != nil {
+						bytes_read = -1
+					}
 				}
 			}
 
