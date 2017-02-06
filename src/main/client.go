@@ -2,12 +2,13 @@ package main
 
 import (
 	"bytes"
-	"command"
 	"encoding/binary"
 	"io"
 	"log"
 	"net"
 	"os"
+
+	"main/command"
 )
 
 type FileReader interface {
