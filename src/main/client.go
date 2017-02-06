@@ -51,7 +51,7 @@ func (c *client) Run() {
 		binary.Read(bytes.NewReader(raw_msg[:]), binary.BigEndian, &msg)
 
 		switch msg.Command {
-		case command.NETISO_CMD_OPEN_DIR:
+		case command.OpenDirCode:
 			reader := io.MultiReader(bytes.NewReader(raw_msg[:]), c.socket)
 			result, err := command.OpenDir(reader)
 			if err != nil {
@@ -68,7 +68,7 @@ func (c *client) Run() {
 				log.Print("Error writing to socket CMD_OPEN_DIR: ", err)
 				return
 			}
-		case command.NETISO_CMD_READ_DIR:
+		case command.ReadDirCode:
 			result := command.ReadDir(c.dir)
 			err := binary.Write(c.socket, binary.BigEndian, result.Len)
 			if err != nil {
@@ -81,7 +81,7 @@ func (c *client) Run() {
 				log.Print("Error writing to socket CMD_READ_DIR: ", err)
 				return
 			}
-		case command.NETISO_CMD_STAT_FILE:
+		case command.StatFileCode:
 			reader := io.MultiReader(bytes.NewReader(raw_msg[:]), c.socket)
 			result, err := command.StatFile(reader)
 			if err != nil {
@@ -94,7 +94,7 @@ func (c *client) Run() {
 				log.Print("Error writing to socket CMD_STAT_FILE: ", err)
 				return
 			}
-		case command.NETISO_CMD_OPEN_FILE:
+		case command.OpenFileCode:
 			reader := io.MultiReader(bytes.NewReader(raw_msg[:]), c.socket)
 			result, err := command.OpenFile(reader)
 			if err != nil {
@@ -109,7 +109,7 @@ func (c *client) Run() {
 				return
 			}
 
-		case command.NETISO_CMD_READ_FILE:
+		case command.ReadFileCode:
 			var bytes_read int32
 			var msg read_file_message
 
