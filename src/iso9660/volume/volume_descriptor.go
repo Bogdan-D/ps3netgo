@@ -18,7 +18,7 @@ type VolumeDescriptor struct {
 // Because all structs has same size, it's safe to use unsafe here
 func (d *VolumeDescriptor) ToSupplementary() *SupplementaryRecord {
 	if d.IsSupplementary() {
-		var pointer = unsafe.Pointer(&d)
+		var pointer = unsafe.Pointer(d)
 		return (*SupplementaryRecord)(pointer)
 	}
 
